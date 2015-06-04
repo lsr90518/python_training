@@ -2,7 +2,6 @@ import mysql.connector
 import sys
 
 line = input()
-print(line)
 
 CONFIG = {
     "host": "127.0.0.1",
@@ -14,8 +13,10 @@ CONFIG = {
 cnx = mysql.connector.connect(**CONFIG)
 cur = cnx.cursor(buffered=True)
 
-sql = "SELECT id, name, tel FROM user where name='"+line+"'"
-cur.execute(sql)
+inputName = (line,)
+
+sql = "SELECT id, name, tel FROM user where name=%s"
+cur.execute(sql,inputName)
 
 rows = cur.fetchall()
 
